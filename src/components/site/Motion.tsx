@@ -5,18 +5,12 @@ import { useRef, type ReactNode } from "react";
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 18 },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.8, ease: EASE },
   },
-};
-
-export const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
 export function Reveal({
@@ -45,16 +39,19 @@ export function Reveal({
   );
 }
 
+/**
+ * Mask reveal heading — line by line, no blur, no bounce.
+ */
 export function AnimatedHeading({
   text,
   className,
   as: Tag = "h2",
-  highlight,
+  italic,
 }: {
   text: string;
   className?: string;
   as?: "h1" | "h2" | "h3";
-  highlight?: string;
+  italic?: string;
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -63,29 +60,22 @@ export function AnimatedHeading({
 
   return (
     <Comp ref={ref} className={className}>
-      <span className="inline-block overflow-hidden">
-        {words.map((w, i) => (
-          <span key={i} className="inline-block overflow-hidden align-baseline">
+      {words.map((w, i) => {
+        const isItalic = italic && w.toLowerCase().includes(italic.toLowerCase());
+        return (
+          <span key={i} className="inline-block overflow-hidden align-bottom">
             <motion.span
-              initial={{ y: "110%", opacity: 0, filter: "blur(8px)" }}
-              animate={
-                inView
-                  ? { y: "0%", opacity: 1, filter: "blur(0px)" }
-                  : { y: "110%", opacity: 0, filter: "blur(8px)" }
-              }
-              transition={{ duration: 0.9, ease: EASE, delay: i * 0.06 }}
-              className={`inline-block ${
-                highlight && w.toLowerCase().includes(highlight.toLowerCase())
-                  ? "text-gradient"
-                  : ""
-              }`}
+              initial={{ y: "115%" }}
+              animate={inView ? { y: "0%" } : { y: "115%" }}
+              transition={{ duration: 0.9, ease: EASE, delay: i * 0.05 }}
+              className={`inline-block ${isItalic ? "italic text-accent-brand font-display" : ""}`}
             >
               {w}
             </motion.span>
             {i < words.length - 1 && <span>&nbsp;</span>}
           </span>
-        ))}
-      </span>
+        );
+      })}
     </Comp>
   );
 }

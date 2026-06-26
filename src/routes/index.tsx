@@ -14,10 +14,10 @@ import { Footer } from "@/components/site/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Crescend Media Group — Develop. Scale. Collect." },
-      { name: "description", content: "Premium digital agency for ambitious founders. Brand, web, e-commerce, performance marketing and growth systems — engineered to compound revenue." },
-      { property: "og:title", content: "Crescend Media Group — Develop. Scale. Collect." },
-      { property: "og:description", content: "Premium digital agency for ambitious founders. Brand, web, e-commerce, performance marketing and growth systems — engineered to compound revenue." },
+      { title: "Crescend Media Group — Premium websites, brands & growth systems" },
+      { name: "description", content: "Premium websites, brands and growth systems for ambitious companies. Editorial design, conversion engineering, measurable growth." },
+      { property: "og:title", content: "Crescend Media Group — Premium websites, brands & growth systems" },
+      { property: "og:description", content: "Premium websites, brands and growth systems for ambitious companies. Editorial design, conversion engineering, measurable growth." },
     ],
   }),
   component: Home,
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-background text-foreground">
+    <main className="relative min-h-screen overflow-x-clip bg-ivory text-charcoal">
       <Nav />
       <Hero />
       <Services />

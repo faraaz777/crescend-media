@@ -1,119 +1,139 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { EASE } from "./Motion";
+import { useInView } from "framer-motion";
 import { useRef } from "react";
-import logo from "@/assets/cm-logo.png";
-import { AnimatedHeading, EASE } from "./Motion";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const logoY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const inView = useInView(ref, { once: true });
+
+  const headlineLines = [
+    ["Premium digital presence", "for"],
+    ["brands that want to look", null],
+    ["established,", "italic:sell better,"],
+    ["and", "italic:grow faster."],
+  ];
 
   return (
-    <section ref={ref} id="top" className="relative isolate overflow-hidden pt-36 pb-24 sm:pt-44 sm:pb-32">
-      {/* atmospheric backdrop */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
-        <div className="absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full opacity-40 blur-[120px]"
-             style={{ background: "radial-gradient(closest-side, rgba(30,123,255,0.5), transparent)" }} />
-        <div className="absolute top-20 right-0 h-[500px] w-[500px] rounded-full opacity-30 blur-[120px]"
-             style={{ background: "radial-gradient(closest-side, rgba(106,0,255,0.6), transparent)" }} />
-        <div className="absolute top-40 left-0 h-[400px] w-[400px] rounded-full opacity-30 blur-[120px]"
-             style={{ background: "radial-gradient(closest-side, rgba(0,212,179,0.5), transparent)" }} />
+    <section ref={ref} id="top" className="relative isolate overflow-hidden bg-ivory pt-36 pb-40 sm:pt-44 sm:pb-56">
+      {/* Subtle editorial backdrop — single soft tinted shape inspired by the logo's curve */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <svg className="absolute -right-40 -top-20 opacity-[0.06] sm:opacity-[0.08]" width="900" height="900" viewBox="0 0 900 900" fill="none">
+          <circle cx="450" cy="450" r="320" stroke="#14161B" strokeWidth="1" />
+          <circle cx="450" cy="450" r="220" stroke="#14161B" strokeWidth="1" />
+          <path d="M620 320a200 200 0 1 0 0 260" stroke="var(--accent-brand)" strokeWidth="38" strokeLinecap="round" />
+        </svg>
       </div>
 
-      <motion.div style={{ y, opacity }} className="mx-auto max-w-7xl px-5 sm:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="mx-auto mb-8 flex w-fit items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-muted-foreground"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-teal" />
-          </span>
-          Now booking Q1 2026 — limited engagements
-        </motion.div>
-
-        <AnimatedHeading
-          as="h1"
-          text="Brands that scale. Systems that collect."
-          highlight="scale"
-          className="mx-auto max-w-5xl text-center text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl lg:text-8xl"
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
-          className="mx-auto mt-8 max-w-2xl text-center text-base text-muted-foreground sm:text-lg"
-        >
-          We design, build, and grow digital businesses for ambitious founders — engineered for
-          conversion, measured in revenue, refined for compounding growth.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
-          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
-        >
-          <a
-            href="#contact"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-elev"
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 sm:px-10 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-8">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="mb-8 inline-flex items-center gap-3"
           >
-            <span className="absolute inset-0 brand-ring" />
-            <span className="absolute inset-0 translate-y-full bg-white/15 transition-transform duration-500 group-hover:translate-y-0" />
-            <span className="relative">Book a strategy call</span>
-            <span className="relative transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </a>
-          <a
-            href="#work"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-7 py-3.5 text-sm font-semibold transition hover:bg-white/[0.07]"
+            <span className="h-px w-10 bg-charcoal/40" />
+            <span className="eyebrow">Crescend Media Group · Est. 2018</span>
+          </motion.div>
+
+          <h1 className="font-display text-[44px] font-medium leading-[1.02] tracking-tight text-charcoal sm:text-[68px] lg:text-[88px]">
+            {headlineLines.map((line, li) => (
+              <span key={li} className="block overflow-hidden">
+                <motion.span
+                  initial={{ y: "115%" }}
+                  animate={inView ? { y: "0%" } : { y: "115%" }}
+                  transition={{ duration: 1, ease: EASE, delay: 0.1 + li * 0.12 }}
+                  className="inline-block"
+                >
+                  {line.map((word, wi) => {
+                    if (!word) return null;
+                    const isItalic = word.startsWith("italic:");
+                    const text = isItalic ? word.replace("italic:", "") : word;
+                    return (
+                      <span
+                        key={wi}
+                        className={`${isItalic ? "italic text-accent-brand font-display" : ""}`}
+                      >
+                        {text}{wi < line.length - 1 && line[wi + 1] ? " " : ""}
+                      </span>
+                    );
+                  })}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
+            className="mt-10 max-w-xl text-[17px] leading-relaxed text-charcoal/70 sm:text-[18px]"
           >
-            See our work
-          </a>
-        </motion.div>
+            We design websites, brands and growth systems that earn trust before
+            the first conversation — and convert it into long-term revenue.
+          </motion.p>
 
-        <motion.div style={{ y: logoY }} className="relative mt-20 sm:mt-28">
-          <div className="absolute left-1/2 top-1/2 -z-10 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-3xl"
-               style={{ background: "conic-gradient(from 90deg, rgba(0,212,179,0.4), rgba(30,123,255,0.35), rgba(106,0,255,0.4), rgba(0,212,179,0.4))" }} />
-          <motion.img
-            src={logo}
-            alt=""
-            aria-hidden
-            initial={{ scale: 0.8, opacity: 0, rotate: -8 }}
-            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-            transition={{ duration: 1.4, ease: EASE, delay: 0.3 }}
-            className="mx-auto h-44 w-auto sm:h-56 drop-shadow-[0_30px_60px_rgba(30,123,255,0.45)]"
-            width={224}
-            height={224}
-          />
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
+            className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5"
+          >
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 rounded-md bg-charcoal px-6 py-3.5 text-sm font-semibold text-ivory transition hover:bg-ink"
+            >
+              Book a strategy call
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+            </a>
+            <a
+              href="#work"
+              className="group inline-flex items-center gap-2 px-1 py-3.5 text-sm font-semibold text-charcoal"
+            >
+              <span className="relative">
+                See selected work
+                <span className="absolute inset-x-0 -bottom-0.5 h-px bg-charcoal transition-transform duration-500 group-hover:scale-x-110" />
+              </span>
+            </a>
+          </motion.div>
+        </div>
 
-        {/* trust strip */}
-        <motion.div
+        {/* Right side — vertical meta column, editorial style */}
+        <motion.aside
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="mt-16 grid grid-cols-2 gap-6 border-t border-white/10 pt-10 sm:grid-cols-4"
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 1 }}
+          className="hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end lg:pb-6"
         >
-          {[
-            ["120+", "Brands shipped"],
-            ["4.9/5", "Client rating"],
-            ["38%", "Avg. CR uplift"],
-            ["7 yrs", "Building online"],
-          ].map(([n, l]) => (
-            <div key={l} className="text-center">
-              <div className="text-2xl font-bold tracking-tight sm:text-3xl">{n}</div>
-              <div className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{l}</div>
+          <div className="border-l border-hairline pl-6">
+            <div className="eyebrow">In numbers</div>
+            <div className="mt-6 space-y-5">
+              {[
+                ["120+", "Brands shipped worldwide"],
+                ["38%", "Average conversion uplift"],
+                ["4.9 / 5", "Verified client rating"],
+              ].map(([n, l]) => (
+                <div key={l as string}>
+                  <div className="font-display text-3xl text-charcoal">{n}</div>
+                  <div className="mt-1 text-[12px] text-charcoal/60">{l}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </motion.div>
-      </motion.div>
+          </div>
+        </motion.aside>
+      </div>
+
+      {/* Curved bottom transition into the next (mist) section */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 140" preserveAspectRatio="none" className="block h-[80px] w-full sm:h-[140px]" aria-hidden>
+          <path
+            d="M0,40 C320,140 720,140 1080,80 C1240,55 1360,40 1440,30 L1440,140 L0,140 Z"
+            fill="var(--mist)"
+          />
+        </svg>
+      </div>
     </section>
   );
 }
