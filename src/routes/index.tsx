@@ -1,29 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/site/Nav";
+import { Hero } from "@/components/site/Hero";
+import { Services } from "@/components/site/Services";
+import { WhyUs } from "@/components/site/WhyUs";
+import { Process } from "@/components/site/Process";
+import { Work } from "@/components/site/Work";
+import { Results } from "@/components/site/Results";
+import { Testimonials } from "@/components/site/Testimonials";
+import { CTA } from "@/components/site/CTA";
+import { Contact } from "@/components/site/Contact";
+import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Crescend Media Group — Develop. Scale. Collect." },
+      { name: "description", content: "Premium digital agency for ambitious founders. Brand, web, e-commerce, performance marketing and growth systems — engineered to compound revenue." },
+      { property: "og:title", content: "Crescend Media Group — Develop. Scale. Collect." },
+      { property: "og:description", content: "Premium digital agency for ambitious founders. Brand, web, e-commerce, performance marketing and growth systems — engineered to compound revenue." },
     ],
   }),
-  component: Index,
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="relative min-h-screen overflow-x-clip bg-background text-foreground">
+      <Nav />
+      <Hero />
+      <Services />
+      <WhyUs />
+      <Process />
+      <Work />
+      <Results />
+      <Testimonials />
+      <CTA />
+      <Contact />
+      <Footer />
+    </main>
   );
 }
