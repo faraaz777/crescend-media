@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { AnimatedHeading, EASE, Reveal } from "./Motion";
+import { images } from "@/lib/images";
 
 const items = [
   {
@@ -8,24 +9,28 @@ const items = [
       "Crescend rebuilt our entire web presence in eight weeks. The numbers moved immediately — and the brand finally matches the ambition of the company.",
     name: "Priya N.",
     role: "Founder, Lumen Academy",
+    avatar: images.avatars.priya,
   },
   {
     quote:
       "A genuinely senior team. Strategy was sharp, design was on another level, and the engineering held up under our biggest launch yet.",
     name: "Marcus D.",
     role: "CMO, Maison Noir",
+    avatar: images.avatars.marcus,
   },
   {
     quote:
       "They treat the work like owners, not vendors. Two years in and they're the most valuable line item on our P&L.",
     name: "Dr. R. Kapoor",
     role: "Director, Northline Clinics",
+    avatar: images.avatars.kapoor,
   },
   {
     quote:
       "Our enquiry quality changed overnight. The site doesn't just look premium — it filters and converts the right buyer.",
     name: "Ananya S.",
     role: "Partner, Veridian Estates",
+    avatar: images.avatars.ananya,
   },
 ];
 
@@ -68,9 +73,14 @@ export function Testimonials() {
                 {it.quote}
               </blockquote>
               <figcaption className="mt-8 flex items-center gap-3 border-t border-hairline pt-5">
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-mist text-xs font-semibold text-charcoal">
-                  {it.name.split(" ").map((n) => n[0]).join("")}
-                </div>
+                <img
+                  src={it.avatar}
+                  alt={it.name}
+                  width={40}
+                  height={40}
+                  loading="lazy"
+                  className="h-10 w-10 shrink-0 rounded-full object-cover ring-2 ring-mist"
+                />
                 <div>
                   <div className="text-sm font-semibold text-charcoal">{it.name}</div>
                   <div className="text-xs text-charcoal/55">{it.role}</div>

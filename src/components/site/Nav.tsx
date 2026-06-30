@@ -29,9 +29,9 @@ export function Nav() {
         scrolled ? "bg-ivory/85 backdrop-blur border-b border-hairline" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
-        <a href="#top" className="shrink-0"><Logo /></a>
-        <nav className="hidden md:flex items-center gap-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4 lg:px-10">
+        <a href="#top" className="min-w-0 shrink"><Logo /></a>
+        <nav className="hidden items-center gap-6 md:flex lg:gap-8">
           {links.map((l) => (
             <a
               key={l.href}
@@ -44,9 +44,10 @@ export function Nav() {
         </nav>
         <a
           href="#contact"
-          className="group inline-flex items-center gap-2 rounded-md bg-charcoal px-4 py-2.5 text-[13px] font-semibold text-ivory transition hover:bg-ink"
+          className="group inline-flex shrink-0 items-center gap-1.5 rounded-md bg-charcoal px-3 py-2 text-xs font-semibold text-ivory transition hover:bg-ink sm:gap-2 sm:px-4 sm:py-2.5 sm:text-[13px]"
         >
-          Start a project
+          <span className="sm:hidden">Start</span>
+          <span className="hidden sm:inline">Start a project</span>
           <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
         </a>
       </div>

@@ -2,6 +2,7 @@
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { AnimatedHeading, Reveal } from "./Motion";
+import { images } from "@/lib/images";
 
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -33,8 +34,15 @@ const stats = [
 
 export function Results() {
   return (
-    <section id="results" className="relative bg-ink py-28 text-ivory sm:py-36">
-      <div className="mx-auto max-w-7xl px-6 sm:px-10">
+    <section id="results" className="relative overflow-hidden bg-ink py-28 text-ivory sm:py-36">
+      <img
+        src={images.resultsBg}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-ink/85" aria-hidden />
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-10">
         <div className="max-w-2xl">
           <Reveal>
             <div className="mb-6 flex items-center gap-3">

@@ -1,44 +1,53 @@
 "use client";
 import { motion } from "framer-motion";
 import { EASE } from "./Motion";
+import { OrbitVisual } from "./OrbitVisual";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+
+const headlineLines = [
+  ["Premium digital presence", "for"],
+  ["brands that want to look", null],
+  ["established,", "italic:sell better,"],
+  ["and", "italic:grow faster."],
+];
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
-  const headlineLines = [
-    ["Premium digital presence", "for"],
-    ["brands that want to look", null],
-    ["established,", "italic:sell better,"],
-    ["and", "italic:grow faster."],
-  ];
-
   return (
-    <section ref={ref} id="top" className="relative isolate overflow-hidden bg-ivory pt-36 pb-40 sm:pt-44 sm:pb-56">
-      {/* Subtle editorial backdrop — single soft tinted shape inspired by the logo's curve */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <svg className="absolute -right-40 -top-20 opacity-[0.06] sm:opacity-[0.08]" width="900" height="900" viewBox="0 0 900 900" fill="none">
+    <section
+      ref={ref}
+      id="top"
+      className="relative isolate overflow-hidden bg-ivory pt-[calc(4rem+env(safe-area-inset-top,0px))] sm:pt-[calc(4.5rem+env(safe-area-inset-top,0px))] lg:min-h-[88vh]"
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <svg
+          className="absolute -right-32 -top-16 h-auto w-[min(900px,120vw)] opacity-[0.03] sm:-right-40 sm:-top-20 lg:opacity-[0.04]"
+          viewBox="0 0 900 900"
+          fill="none"
+        >
           <circle cx="450" cy="450" r="320" stroke="#14161B" strokeWidth="1" />
           <circle cx="450" cy="450" r="220" stroke="#14161B" strokeWidth="1" />
-          <path d="M620 320a200 200 0 1 0 0 260" stroke="var(--accent-brand)" strokeWidth="38" strokeLinecap="round" />
         </svg>
       </div>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 sm:px-10 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-8">
+      <div className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 sm:pb-12 lg:px-10 lg:pb-14">
+        <div className="relative z-10 max-w-3xl lg:max-w-[52vw] lg:pr-6 xl:max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="mb-8 inline-flex items-center gap-3"
+            className="mb-5 inline-flex max-w-full flex-wrap items-center gap-2.5 sm:mb-6 sm:gap-3"
           >
-            <span className="h-px w-10 bg-charcoal/40" />
-            <span className="eyebrow">Crescend Media Group · Est. 2018</span>
+            <span className="h-px w-8 shrink-0 bg-charcoal/40 sm:w-10" />
+            <span className="eyebrow max-sm:text-[10px] max-sm:tracking-[0.16em]">
+              Crescend Media Group · Est. 2018
+            </span>
           </motion.div>
 
-          <h1 className="font-display text-[44px] font-medium leading-[1.02] tracking-tight text-charcoal sm:text-[68px] lg:text-[88px]">
+          <h1 className="hero-headline text-pretty font-display font-medium tracking-tight text-charcoal">
             {headlineLines.map((line, li) => (
               <span key={li} className="block overflow-hidden">
                 <motion.span
@@ -54,9 +63,10 @@ export function Hero() {
                     return (
                       <span
                         key={wi}
-                        className={`${isItalic ? "italic text-accent-brand font-display" : ""}`}
+                        className={isItalic ? "font-display italic text-accent-brand" : ""}
                       >
-                        {text}{wi < line.length - 1 && line[wi + 1] ? " " : ""}
+                        {text}
+                        {wi < line.length - 1 && line[wi + 1] ? " " : ""}
                       </span>
                     );
                   })}
@@ -69,7 +79,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
-            className="mt-10 max-w-xl text-[17px] leading-relaxed text-charcoal/70 sm:text-[18px]"
+            className="hero-subtext mt-7 max-w-xl leading-relaxed text-charcoal/70 sm:mt-9 lg:mt-10"
           >
             We design websites, brands and growth systems that earn trust before
             the first conversation — and convert it into long-term revenue.
@@ -79,18 +89,18 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
-            className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5"
+            className="mt-7 flex w-full flex-col gap-3 sm:mt-9 sm:w-auto sm:flex-row sm:items-center sm:gap-5 lg:mt-10"
           >
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-md bg-charcoal px-6 py-3.5 text-sm font-semibold text-ivory transition hover:bg-ink"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-md bg-charcoal px-6 py-3.5 text-sm font-semibold text-ivory transition hover:bg-ink sm:w-auto"
             >
               Book a strategy call
               <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
             </a>
             <a
               href="#work"
-              className="group inline-flex items-center gap-2 px-1 py-3.5 text-sm font-semibold text-charcoal"
+              className="group inline-flex w-full items-center justify-center gap-2 px-1 py-3.5 text-sm font-semibold text-charcoal sm:w-auto sm:justify-start"
             >
               <span className="relative">
                 See selected work
@@ -99,37 +109,28 @@ export function Hero() {
             </a>
           </motion.div>
         </div>
-
-        {/* Right side — vertical meta column, editorial style */}
-        <motion.aside
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 1 }}
-          className="hidden lg:col-span-4 lg:flex lg:flex-col lg:justify-end lg:pb-6"
-        >
-          <div className="border-l border-hairline pl-6">
-            <div className="eyebrow">In numbers</div>
-            <div className="mt-6 space-y-5">
-              {[
-                ["120+", "Brands shipped worldwide"],
-                ["38%", "Average conversion uplift"],
-                ["4.9 / 5", "Verified client rating"],
-              ].map(([n, l]) => (
-                <div key={l as string}>
-                  <div className="font-display text-3xl text-charcoal">{n}</div>
-                  <div className="mt-1 text-[12px] text-charcoal/60">{l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.aside>
       </div>
 
-      {/* Curved bottom transition into the next (mist) section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 140" preserveAspectRatio="none" className="block h-[80px] w-full sm:h-[140px]" aria-hidden>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[29vw] overflow-hidden lg:block"
+        aria-hidden
+      >
+        <div className="flex h-full items-center justify-end">
+          <OrbitVisual />
+        </div>
+      </motion.div>
+
+      <div className="pointer-events-none leading-none" aria-hidden>
+        <svg
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          className="block h-10 w-full sm:h-14 lg:h-16"
+        >
           <path
-            d="M0,40 C320,140 720,140 1080,80 C1240,55 1360,40 1440,30 L1440,140 L0,140 Z"
+            d="M0,0 C320,80 720,80 1080,40 C1240,20 1360,10 1440,0 L1440,80 L0,80 Z"
             fill="var(--mist)"
           />
         </svg>
